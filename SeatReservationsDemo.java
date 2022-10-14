@@ -9,7 +9,7 @@ public class SeatReservationsDemo {
 		// TODO Auto-generated method stub
 
 		// Add class
-		SeatReservations seatReservations = new SeatReservations(false);
+		SeatReservations seatReservations = new SeatReservations(1);
 
 		boolean makeReservation = true;
 
@@ -40,31 +40,8 @@ public class SeatReservationsDemo {
 
 		while (makeReservation) {
 			
+			// displays seating
 			seatReservations.displaySeating();
-
-//			System.out.println("\n==================");
-//			System.out.println("SEATS");
-//			System.out.println("==================\n");
-//
-//			System.out.printf("%13s %n", "1 2 3 4 5");
-//			System.out.printf("%13s %n", "----------");
-//
-//			// print array
-//			rowNumber = 1;
-//			for (int row = 0; row < seats.length; row++) {
-//
-//				System.out.print(rowNumber + " | ");
-//
-//				for (int col = 0; col < seats[row].length; col++) {
-//
-//					System.out.print(seats[row][col] + " ");
-//				}
-//				// print new line to separate each row when printing to screen
-//				System.out.println();
-//				rowNumber++;
-//			}
-			
-			
 
 			System.out.println("\nWhich seat do you want to reserve?");
 
@@ -86,6 +63,8 @@ public class SeatReservationsDemo {
 
 				// Checks if seat is already reserved
 				if (seats[rowSelected][columnSelected] != 'x') {
+					
+					seatReservations.addUser(new ReservedSeat(rowSelected, columnSelected, nameSubmitted));
 
 					System.out.println("\n==================");
 					System.out.println("SEATS");
@@ -119,6 +98,9 @@ public class SeatReservationsDemo {
 			} else {
 				System.out.println("-- INVALID ENTRY --");
 			}
+
+			
+			seatReservations.listUsers();
 
 			// Checks if user is done with reservations
 			boolean requestComplete = true;
