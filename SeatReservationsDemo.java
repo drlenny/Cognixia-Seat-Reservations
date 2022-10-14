@@ -8,6 +8,9 @@ public class SeatReservationsDemo {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		// Add class
+		SeatReservations seatReservations = new SeatReservations(false);
+
 		boolean makeReservation = true;
 
 		Scanner scan = new Scanner(System.in);
@@ -36,27 +39,32 @@ public class SeatReservationsDemo {
 				{ 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' } };
 
 		while (makeReservation) {
-			System.out.println("\n==================");
-			System.out.println("SEATS");
-			System.out.println("==================\n");
+			
+			seatReservations.displaySeating();
 
-			System.out.printf("%13s %n", "1 2 3 4 5");
-			System.out.printf("%13s %n", "----------");
-
-			// print array
-			rowNumber = 1;
-			for (int row = 0; row < seats.length; row++) {
-
-				System.out.print(rowNumber + " | ");
-
-				for (int col = 0; col < seats[row].length; col++) {
-
-					System.out.print(seats[row][col] + " ");
-				}
-				// print new line to separate each row when printing to screen
-				System.out.println();
-				rowNumber++;
-			}
+//			System.out.println("\n==================");
+//			System.out.println("SEATS");
+//			System.out.println("==================\n");
+//
+//			System.out.printf("%13s %n", "1 2 3 4 5");
+//			System.out.printf("%13s %n", "----------");
+//
+//			// print array
+//			rowNumber = 1;
+//			for (int row = 0; row < seats.length; row++) {
+//
+//				System.out.print(rowNumber + " | ");
+//
+//				for (int col = 0; col < seats[row].length; col++) {
+//
+//					System.out.print(seats[row][col] + " ");
+//				}
+//				// print new line to separate each row when printing to screen
+//				System.out.println();
+//				rowNumber++;
+//			}
+			
+			
 
 			System.out.println("\nWhich seat do you want to reserve?");
 
@@ -78,9 +86,6 @@ public class SeatReservationsDemo {
 
 				// Checks if seat is already reserved
 				if (seats[rowSelected][columnSelected] != 'x') {
-
-					// create class
-					SeatReservations seatReserved = new SeatReservations(rowSelected, columnSelected, nameSubmitted);
 
 					System.out.println("\n==================");
 					System.out.println("SEATS");
@@ -108,9 +113,6 @@ public class SeatReservationsDemo {
 						rowNumber++;
 					}
 
-					// displays reserved seat info
-					System.out.println(seatReserved);
-
 				} else {
 					System.out.println("-- SEAT ALREADY RESERVED --");
 				}
@@ -118,10 +120,8 @@ public class SeatReservationsDemo {
 				System.out.println("-- INVALID ENTRY --");
 			}
 
+			// Checks if user is done with reservations
 			boolean requestComplete = true;
-
-			// accepts any input that isnt y or Y should maybe tweak functionality
-
 			while (requestComplete) {
 				System.out.println("\nAre you finished reserving seats? (Y/N)");
 				reservingComplete = scan.next();

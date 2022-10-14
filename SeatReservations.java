@@ -3,55 +3,63 @@ package com.cognixia.jump.miniproject.seatreservation;
 public class SeatReservations {
 
 	// Attributes
-	private Integer rowNumber;
-	private Integer columnNumber;
-	private String nameSubmitted;
+	private static int rowNumber = 1;
+	private static char seats[][] = { { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' },
+			{ 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' } };
 
+	private boolean occupied;
+
+//	private ReservedSeat[] reservedSeats;
+	
 	// Default Constructor
 	public SeatReservations() {
 		super();
-		this.rowNumber = -1;
-		this.columnNumber = -1;
-		this.nameSubmitted = "Unoccupied";
+		this.occupied = false;
+	}
+	
+	// Constructor with arguments
+	public SeatReservations(boolean occupied) {
+		super();
+		this.occupied = occupied;
+	}
+	
+	
+	/**
+	 * @return the occupied
+	 */
+	public boolean isOccupied() {
+		return occupied;
 	}
 
-	// Constructor with Arguments
-	public SeatReservations(Integer rowNumber, Integer columnNumber, String nameSubmitted) {
-		this.rowNumber = rowNumber;
-		this.columnNumber = columnNumber;
-		this.nameSubmitted = nameSubmitted;
+	/**
+	 * @param occupied the occupied to set
+	 */
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
 	}
 
-	// Getters and Setters
-	public int getRowNumber() {
-		return rowNumber;
-	}
+	public void displaySeating () {
+		
+		System.out.println("\n==================");
+		System.out.println("SEATS");
+		System.out.println("==================\n");
 
-	public void setRowNumber(int rowNumber) {
-		this.rowNumber = rowNumber;
-	}
+		System.out.printf("%13s %n", "1 2 3 4 5");
+		System.out.printf("%13s %n", "----------");
 
-	public int getColumnNumber() {
-		return columnNumber;
-	}
+		// print array
+		for (int row = 0; row < seats.length; row++) {
 
-	public void setColumnNumber(int columnNumber) {
-		this.columnNumber = columnNumber;
-	}
+			System.out.print(rowNumber + " | ");
 
-	public String getNameSubmitted() {
-		return nameSubmitted;
-	}
+			for (int col = 0; col < seats[row].length; col++) {
 
-	public void setNameSubmitted(String nameSubmitted) {
-		this.nameSubmitted = nameSubmitted;
-	}
-
-	// Methods
-	@Override
-	public String toString() {
-		return "SeatReservations [rowNumber=" + rowNumber + ", columnNumber=" + columnNumber + ", nameSubmitted="
-				+ nameSubmitted + "]";
+				System.out.print(seats[row][col] + " ");
+			}
+			// print new line to separate each row when printing to screen
+			System.out.println();
+			rowNumber++;
+		}
 	}
 
 }
