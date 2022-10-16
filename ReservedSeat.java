@@ -11,13 +11,13 @@ public class ReservedSeat {
 	private String nameSubmitted;
 
 
-//	// Default Constructor
-//	public ReservedSeat() {
-//		super();
-//		this.rowNumber = -1;
-//		this.columnNumber = -1;
-//		this.nameSubmitted = "Unoccupied";
-//	}
+	// Default Constructor
+	public ReservedSeat() {
+		super();
+		this.rowNumber = -1;
+		this.columnNumber = -1;
+		this.nameSubmitted = "Unoccupied";
+	}
 
 	// Constructor with Arguments
 	public ReservedSeat(Integer rowNumber, Integer columnNumber, String nameSubmitted) {

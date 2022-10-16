@@ -4,8 +4,8 @@ public class SeatReservations {
 
 	// Attributes
 	
-	private char seats[][] = { { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' },
-			{ 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' } };
+	
+	private char seats[][];
 
 	private int rowNumber;
 	private int audienceSize; // only generate getter for size
@@ -16,7 +16,23 @@ public class SeatReservations {
 	public SeatReservations(int rowNumber) {
 		super();
 		this.reservedSeats = new ReservedSeat[25];
+		this.seats = new char[5][5];
 		this.rowNumber = rowNumber;
+
+	}
+
+	/**
+	 * @return the seats
+	 */
+	public char[][] getSeats() {
+		return seats;
+	}
+
+	/**
+	 * @param seats the seats to set
+	 */
+	public void setSeats(char[][] seats) {
+		this.seats = seats;
 	}
 
 	/**
@@ -72,6 +88,21 @@ public class SeatReservations {
 		return -1; // default if no user found		
 	}
 	
+	// determines if requested seat is already reserved
+	private boolean checkSeating(int selectedRow, int selectedColumn) {
+		
+		for (int i = 0; i < reservedSeats.length; i++) {
+			if(reservedSeats[i] == null) {
+				continue;
+			}
+			else if(reservedSeats[i].getRowNumber() == selectedRow && reservedSeats[i].getColumnNumber() == selectedColumn) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	// get user
 		public ReservedSeat getUser(int id) {
 			
@@ -83,11 +114,12 @@ public class SeatReservations {
 			
 			return null; // returns null for not found if index is -1
 		}
+		
 
 		// add new user
 		public ReservedSeat addUser(ReservedSeat newUser) {
 
-			if(audienceSize == reservedSeats.length) { // reach capacity, don't add
+			if(checkSeating(newUser.getRowNumber(), newUser.getColumnNumber()) == true) { // if seat already reserved don't add
 				return null;
 			}
 			if (getUser(newUser.getUserId()) == null) { // as long as new user isn't in audience already...
@@ -131,8 +163,9 @@ public class SeatReservations {
 
 					if (s != null) {
 						System.out.println(s);
-						System.out.println(reservedSeats.length);
-					}
+						System.out.println(s.getColumnNumber() -1);
+						System.out.println(audienceSize);
+					} 
 				}
 			}
 		}
@@ -157,13 +190,24 @@ public class SeatReservations {
 			System.out.print(rowNumber + " | ");
 
 			for (int col = 0; col < seats[row].length; col++) {
+				
+				for (ReservedSeat s : reservedSeats) {
 
+					if (checkSeating((row + 1), (col + 1)) == true) {
+						seats[row][col] = 'x';
+					} else {
+						seats[row][col] = 'o';
+					}
+				}
 				System.out.print(seats[row][col] + " ");
+
 			}
+
 			// print new line to separate each row when printing to screen
 			System.out.println();
 			rowNumber++;
 		}
+		
 	}
 
 }

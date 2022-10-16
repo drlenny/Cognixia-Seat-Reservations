@@ -46,60 +46,62 @@ public class SeatReservationsDemo {
 			System.out.println("\nWhich seat do you want to reserve?");
 
 			System.out.println("Row: ");
-			rowSelected = scan.nextInt() - 1;
+			rowSelected = scan.nextInt();
 
 			System.out.println("Column: ");
-			columnSelected = scan.nextInt() - 1;
+			columnSelected = scan.nextInt();
 
 			System.out.println("Name of reservee: ");
 			nameSubmitted = scan.next();
 
 			rowMatcher = patternSeat.matcher(rowSelected.toString());
 			columnMatcher = patternSeat.matcher(columnSelected.toString());
-
-			if (rowMatcher.matches() && columnMatcher.matches()) {
-
-//		System.out.println("You entered: " + rowSelected + " " + columnSelected + " " + nameSubmitted);
-
-				// Checks if seat is already reserved
-				if (seats[rowSelected][columnSelected] != 'x') {
-					
-					seatReservations.addUser(new ReservedSeat(rowSelected, columnSelected, nameSubmitted));
-
-					System.out.println("\n==================");
-					System.out.println("SEATS");
-					System.out.println("==================\n");
-
-					System.out.printf("%13s %n", "1 2 3 4 5");
-					System.out.printf("%13s %n", "----------");
-
-					// print array
-					rowNumber = 1;
-					for (int row = 0; row < seats.length; row++) {
-
-						System.out.print(rowNumber + " | ");
-
-						for (int col = 0; col < seats[row].length; col++) {
-
-							if ((row == rowSelected) && (col == columnSelected)) {
-								seats[rowSelected][columnSelected] = 'x';
-							}
-
-							System.out.print(seats[row][col] + " ");
-						}
-						// print new line to separate each row when printing to screen
-						System.out.println();
-						rowNumber++;
-					}
-
-				} else {
-					System.out.println("-- SEAT ALREADY RESERVED --");
-				}
-			} else {
-				System.out.println("-- INVALID ENTRY --");
-			}
-
+//
+//			if (rowMatcher.matches() && columnMatcher.matches()) {
+//
+////		System.out.println("You entered: " + rowSelected + " " + columnSelected + " " + nameSubmitted);
+//
+//				// Checks if seat is already reserved
+//				if (seats[rowSelected][columnSelected] != 'x') {
+//
+//					System.out.println("\n==================");
+//					System.out.println("SEATS");
+//					System.out.println("==================\n");
+//
+//					System.out.printf("%13s %n", "1 2 3 4 5");
+//					System.out.printf("%13s %n", "----------");
+//
+//					// print array
+//					rowNumber = 1;
+//					for (int row = 0; row < seats.length; row++) {
+//
+//						System.out.print(rowNumber + " | ");
+//
+//						for (int col = 0; col < seats[row].length; col++) {
+//
+//							if ((row == rowSelected) && (col == columnSelected)) {
+//								seats[rowSelected][columnSelected] = 'x';
+//							}
+//
+//							System.out.print(seats[row][col] + " ");
+//						}
+//						// print new line to separate each row when printing to screen
+//						System.out.println();
+//						rowNumber++;
+//					}
+//
+//				} else {
+//					System.out.println("-- SEAT ALREADY RESERVED --");
+//				}
+//			} else {
+//				System.out.println("-- INVALID ENTRY --");
+//			}
 			
+			seatReservations.addUser(new ReservedSeat(rowSelected, columnSelected, nameSubmitted));
+			// displays seating
+			seatReservations.displaySeating();
+
+
 			seatReservations.listUsers();
 
 			// Checks if user is done with reservations
