@@ -89,7 +89,7 @@ public class SeatReservations {
 	}
 	
 	// determines if requested seat is already reserved
-	private boolean checkSeating(int selectedRow, int selectedColumn) {
+	boolean checkSeating(int selectedRow, int selectedColumn) {
 		
 		for (int i = 0; i < reservedSeats.length; i++) {
 			if(reservedSeats[i] == null) {
@@ -159,12 +159,11 @@ public class SeatReservations {
 				System.out.println("\nNo audience members");
 			}
 			else {
+				System.out.println();
 				for (ReservedSeat s : reservedSeats) {
 
 					if (s != null) {
 						System.out.println(s);
-						System.out.println(s.getColumnNumber() -1);
-						System.out.println(audienceSize);
 					} 
 				}
 			}

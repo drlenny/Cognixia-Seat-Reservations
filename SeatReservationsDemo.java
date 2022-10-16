@@ -1,5 +1,6 @@
 package com.cognixia.jump.miniproject.seatreservation;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,8 +24,8 @@ public class SeatReservationsDemo {
 		Pattern patternContinue = Pattern.compile(continueRegex);
 		Pattern patternExit = Pattern.compile(exitRegex);
 
-		Integer rowSelected;
-		Integer columnSelected;
+		Integer rowSelected = null;
+		Integer columnSelected = null;
 		String nameSubmitted;
 		CharSequence reservingComplete;
 
@@ -34,73 +35,59 @@ public class SeatReservationsDemo {
 		Matcher continueMatcher;
 		Matcher exitMatcher;
 
-		int rowNumber;
-		char seats[][] = { { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' },
-				{ 'o', 'o', 'o', 'o', 'o' }, { 'o', 'o', 'o', 'o', 'o' } };
-
 		while (makeReservation) {
-			
+
 			// displays seating
 			seatReservations.displaySeating();
 
+			// =========== requesting user data ============
 			System.out.println("\nWhich seat do you want to reserve?");
 
-			System.out.println("Row: ");
-			rowSelected = scan.nextInt();
-
+			boolean checkRowError = true;
+			while (checkRowError) {
+				try {
+					System.out.println("Row: ");
+					rowSelected = scan.nextInt();
+					checkRowError = false;
+				} catch (InputMismatchException exception) {
+					System.out.println("Please enter a row number");
+					scan.next();
+					checkRowError = true;
+				}
+			}
+			
+			boolean checkColumnError = true;
+			while(checkColumnError) {
+				try {
 			System.out.println("Column: ");
 			columnSelected = scan.nextInt();
+			checkColumnError = false;
+				} catch (InputMismatchException exception) {
+					System.out.println("Please enter a column number");
+					scan.next();
+					checkColumnError = true;
+				}
+			}
 
 			System.out.println("Name of reservee: ");
 			nameSubmitted = scan.next();
 
 			rowMatcher = patternSeat.matcher(rowSelected.toString());
 			columnMatcher = patternSeat.matcher(columnSelected.toString());
-//
-//			if (rowMatcher.matches() && columnMatcher.matches()) {
-//
-////		System.out.println("You entered: " + rowSelected + " " + columnSelected + " " + nameSubmitted);
-//
-//				// Checks if seat is already reserved
-//				if (seats[rowSelected][columnSelected] != 'x') {
-//
-//					System.out.println("\n==================");
-//					System.out.println("SEATS");
-//					System.out.println("==================\n");
-//
-//					System.out.printf("%13s %n", "1 2 3 4 5");
-//					System.out.printf("%13s %n", "----------");
-//
-//					// print array
-//					rowNumber = 1;
-//					for (int row = 0; row < seats.length; row++) {
-//
-//						System.out.print(rowNumber + " | ");
-//
-//						for (int col = 0; col < seats[row].length; col++) {
-//
-//							if ((row == rowSelected) && (col == columnSelected)) {
-//								seats[rowSelected][columnSelected] = 'x';
-//							}
-//
-//							System.out.print(seats[row][col] + " ");
-//						}
-//						// print new line to separate each row when printing to screen
-//						System.out.println();
-//						rowNumber++;
-//					}
-//
-//				} else {
-//					System.out.println("-- SEAT ALREADY RESERVED --");
-//				}
-//			} else {
-//				System.out.println("-- INVALID ENTRY --");
-//			}
-			
-			seatReservations.addUser(new ReservedSeat(rowSelected, columnSelected, nameSubmitted));
-			// displays seating
-			seatReservations.displaySeating();
 
+			if (rowMatcher.matches() && columnMatcher.matches()) {
+				if (seatReservations.checkSeating(rowSelected, columnSelected) == false) {
+					seatReservations.addUser(new ReservedSeat(rowSelected, columnSelected, nameSubmitted));
+					// displays seating
+					seatReservations.displaySeating();
+				} else {
+					// displays seating
+					seatReservations.displaySeating();
+					System.out.println("\n-- SEAT ALREADY RESERVED --");
+				}
+			} else {
+				System.out.println("\n-- INVALID ENTRY --");
+			}
 
 			seatReservations.listUsers();
 

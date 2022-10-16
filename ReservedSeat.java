@@ -63,8 +63,7 @@ public class ReservedSeat {
 
 	@Override
 	public String toString() {
-		return "ReservedSeat [userId=" + userId + ", rowNumber=" + rowNumber + ", columnNumber=" + columnNumber
-				+ ", nameSubmitted=" + nameSubmitted + "]";
+		return "\nName of Audience Member: [" + nameSubmitted + "] Row: [" + rowNumber + "] Column: [" + columnNumber + "]";
 	}
 
 }
